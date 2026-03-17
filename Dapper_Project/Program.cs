@@ -41,22 +41,27 @@ namespace Dapper_Project
             ProductManager manager = new ProductManager();
 
             #region Add
-            Product product = new Product()
-            {
-                ProductName = "IceMocha",
-                SupplierId = 1,
-                CategoryId = 1,
-                QuantityPerUnit = "20 g",
-                UnitPrice = 10,
-                UnitsInStock = 15,
-                UnitsOnOrder = 10,
-                ReorderLevel = 20,
-                Discontinued = true,
-            };
-            if (manager.Add(product))
-                Console.WriteLine("New Product Added!");
-            else
-                Console.WriteLine("Adding Product Failed!!");
+            //Product product = new Product()
+            //{
+            //    ProductName = "IceMocha",
+            //    SupplierId = 1,
+            //    CategoryId = 1,
+            //    QuantityPerUnit = "20 g",
+            //    UnitPrice = 10,
+            //    UnitsInStock = 15,
+            //    UnitsOnOrder = 10,
+            //    ReorderLevel = 20,
+            //    Discontinued = true,
+            //};
+            //if (manager.Add(product))
+            //    Console.WriteLine("New Product Added!");
+            //else
+            //    Console.WriteLine("Adding Product Failed!!");
+            #endregion
+
+            #region Read
+            var Result1 = manager.GetAll().Count();
+            Console.WriteLine($"Number of Product = {Result1}");
             #endregion
             #endregion
         }
