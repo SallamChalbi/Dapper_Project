@@ -60,8 +60,20 @@ namespace Dapper_Project
             #endregion
 
             #region Read
-            var Result1 = manager.GetAll().Count();
-            Console.WriteLine($"Number of Product = {Result1}");
+            //var Result1 = manager.GetAll().Count();
+            //Console.WriteLine($"Number of Product = {Result1}");
+            #endregion
+
+            #region Update 
+            var Result2 = manager.GetById(90);
+            Result2.ProductName = "Ice Late";
+            if (manager.Update(Result2))
+            {
+                Console.WriteLine($"Product with Id {Result2.ProductId} Updated!");
+                Console.WriteLine($"The new Product Name = {Result2.ProductName}");
+            }
+            else
+                Console.WriteLine("Product Update Failed!!");
             #endregion
             #endregion
         }

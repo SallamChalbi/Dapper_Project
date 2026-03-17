@@ -37,19 +37,24 @@ namespace Dapper_Project
 
         public bool Update(Product item)
         {
-            return connection.Execute("NewProductUpdateCommand", new
-            {
-                item.ProductId,
-                item.ProductName,
-                item.SupplierId,
-                item.CategoryId,
-                item.QuantityPerUnit,
-                item.UnitPrice,
-                item.UnitsInStock,
-                item.UnitsOnOrder,
-                item.ReorderLevel,
-                item.Discontinued
-            }, commandType: System.Data.CommandType.StoredProcedure) > 0;
+            return connection.Execute("Update Products Set " +
+                "ProductName=@ProductName, SupplierId=@SupplierId, CategoryId=@CategoryId, " +
+                "QuantityPerUnit=@QuantityPerUnit, UnitPrice=@UnitPrice, UnitsInStock=@UnitsInStock, " +
+                "UnitsOnOrder=@UnitsOnOrder, ReorderLevel=@ReorderLevel, Discontinued=@Discontinued " +
+                "Where ProductId=@ProductId", 
+                new
+                {
+                    item.ProductId,
+                    item.ProductName,
+                    item.SupplierId,
+                    item.CategoryId,
+                    item.QuantityPerUnit,
+                    item.UnitPrice,
+                    item.UnitsInStock,
+                    item.UnitsOnOrder,
+                    item.ReorderLevel,
+                    item.Discontinued
+                }) > 0;
         }
     }
 }
