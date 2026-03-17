@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Dapper_Project
 {
@@ -7,20 +8,37 @@ namespace Dapper_Project
     {
         static void Main(string[] args)
         {
-            SqlConnection sc = new SqlConnection("Server =.;Database=Northwind;Trusted_Connection = True; TrustServerCertificate = True");
+            SqlConnection connection = new SqlConnection("Server = .; Database = Northwind; Trusted_Connection = True; TrustServerCertificate = True");
+
+            #region Query
+            //var result = connection.Query<Product>("Select * From Products");
+
+            ////// or with SP
+            ////var result = connection.Query<Product>("SelectAllProducts", commandType: System.Data.CommandType.StoredProcedure);
+
+            //foreach (var item in result)
+            //    Console.WriteLine(item.ProductName);
+            #endregion
+
+            #region Execute 
+            var result = connection.Execute("Update Products Set ProductName = @ProductName Where ProductId = @ProductId",
+                new
+                {
+                    ProductId = 1,
+                    ProductName = "Moca"
+                });
+            //// or with SP
+            //var result = connection.Execute("UpdateProductNameByProductID",
+            //                        new { ProductId = 1, ProductName = "Tea" },
+            //                        commandType: System.Data.CommandType.StoredProcedure);
+            if (result > 0)
+                Console.WriteLine("Done");
+            else
+                Console.WriteLine("Not Done");
+            #endregion
 
             #region CRUD
-            #region Query
-            #region Read 
-            var result = sc.Query<Product>("Select * From Products");
 
-            //// or by SP
-            //var result = sc.Query<Product>("SelectAllProducts", commandType: System.Data.CommandType.StoredProcedure);
-
-            foreach (var item in result)
-                Console.WriteLine(item.ProductName); 
-            #endregion
-            #endregion
             #endregion
         }
     }
