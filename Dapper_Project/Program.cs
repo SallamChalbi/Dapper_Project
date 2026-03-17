@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace Dapper_Project
 {
@@ -6,7 +7,21 @@ namespace Dapper_Project
     {
         static void Main(string[] args)
         {
-            SqlConnection connection = new SqlConnection("Server = .; Database = Northwind; Trusted_Connection = True; TrustedServerCertificate = True");
+            SqlConnection sc = new SqlConnection("Server =.;Database=Northwind;Trusted_Connection = True; TrustServerCertificate = True");
+
+            #region CRUD
+            #region Query
+            #region Read 
+            var result = sc.Query<Product>("Select * From Products");
+
+            //// or by SP
+            //var result = sc.Query<Product>("SelectAllProducts", commandType: System.Data.CommandType.StoredProcedure);
+
+            foreach (var item in result)
+                Console.WriteLine(item.ProductName); 
+            #endregion
+            #endregion
+            #endregion
         }
     }
 }
