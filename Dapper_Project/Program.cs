@@ -21,24 +21,43 @@ namespace Dapper_Project
             #endregion
 
             #region Execute 
-            var result = connection.Execute("Update Products Set ProductName = @ProductName Where ProductId = @ProductId",
-                new
-                {
-                    ProductId = 1,
-                    ProductName = "Moca"
-                });
-            //// or with SP
-            //var result = connection.Execute("UpdateProductNameByProductID",
-            //                        new { ProductId = 1, ProductName = "Tea" },
-            //                        commandType: System.Data.CommandType.StoredProcedure);
-            if (result > 0)
-                Console.WriteLine("Done");
-            else
-                Console.WriteLine("Not Done");
+            //var result = connection.Execute("Update Products Set ProductName = @ProductName Where ProductId = @ProductId",
+            //    new
+            //    {
+            //        ProductId = 1,
+            //        ProductName = "Moca"
+            //    });
+            ////// or with SP
+            ////var result = connection.Execute("UpdateProductNameByProductID",
+            ////                        new { ProductId = 1, ProductName = "Tea" },
+            ////                        commandType: System.Data.CommandType.StoredProcedure);
+            //if (result > 0)
+            //    Console.WriteLine("Done");
+            //else
+            //    Console.WriteLine("Not Done");
             #endregion
 
             #region CRUD
+            ProductManager manager = new ProductManager();
 
+            #region Add
+            Product product = new Product()
+            {
+                ProductName = "IceMocha",
+                SupplierId = 1,
+                CategoryId = 1,
+                QuantityPerUnit = "20 g",
+                UnitPrice = 10,
+                UnitsInStock = 15,
+                UnitsOnOrder = 10,
+                ReorderLevel = 20,
+                Discontinued = true,
+            };
+            if (manager.Add(product))
+                Console.WriteLine("New Product Added!");
+            else
+                Console.WriteLine("Adding Product Failed!!");
+            #endregion
             #endregion
         }
     }
