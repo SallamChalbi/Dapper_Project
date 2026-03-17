@@ -65,15 +65,25 @@ namespace Dapper_Project
             #endregion
 
             #region Update 
-            var Result2 = manager.GetById(90);
-            Result2.ProductName = "Ice Late";
-            if (manager.Update(Result2))
-            {
-                Console.WriteLine($"Product with Id {Result2.ProductId} Updated!");
-                Console.WriteLine($"The new Product Name = {Result2.ProductName}");
-            }
+            //var Result2 = manager.GetById(90);
+            //Result2.ProductName = "Ice Late";
+
+            //if (manager.Update(Result2))
+            //{
+            //    Console.WriteLine($"Product with Id {Result2.ProductId} Updated!");
+            //    Console.WriteLine($"The new Product Name = {Result2.ProductName}");
+            //}
+            //else
+            //    Console.WriteLine("Updating Product Failed!!");
+            #endregion
+
+            #region Delete 
+            var Result = manager.GetAll().LastOrDefault();
+
+            if (manager.Delete(Result?.ProductId ?? 1))
+                Console.WriteLine($"Product with Id {Result?.ProductId ?? 1} Deleted!");
             else
-                Console.WriteLine("Product Update Failed!!");
+                Console.WriteLine("Deleting Product Failed!!");
             #endregion
             #endregion
         }
